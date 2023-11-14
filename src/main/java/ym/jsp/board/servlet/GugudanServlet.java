@@ -19,8 +19,8 @@ public class GugudanServlet extends HttpServlet {
     int dan = rq.getIntParam("dan", 9);
     int limit = rq.getIntParam("limit", 9);
 
-    req.setAttribute("dan", dan);
-    req.setAttribute("limit", limit);
+    rq.setAttr("dan", dan);
+    rq.setAttr("limit", limit);
 
     RequestDispatcher requestDispatcher = req.getRequestDispatcher("/gugudan2.jsp");
     requestDispatcher.forward(req, resp);
