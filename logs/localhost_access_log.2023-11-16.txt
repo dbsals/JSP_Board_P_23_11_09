@@ -50,3 +50,8 @@
 0:0:0:0:0:0:0:1 - - [16/Nov/2023:22:02:21 +0900] "GET /usr/article/list HTTP/1.1" 200 1850
 0:0:0:0:0:0:0:1 - - [16/Nov/2023:22:02:22 +0900] "GET /usr/article/detail?id=1 HTTP/1.1" 200 1340
 0:0:0:0:0:0:0:1 - - [16/Nov/2023:22:02:23 +0900] "GET /usr/article/list HTTP/1.1" 200 1850
+0:0:0:0:0:0:0:1 - - [16/Nov/2023:22:19:51 +0900] "GET /usr/article/list HTTP/1.1" 200 1850
+0:0:0:0:0:0:0:1 - - [16/Nov/2023:22:19:55 +0900] "GET /usr/article/detail?id=4 HTTP/1.1" 200 1412
+0:0:0:0:0:0:0:1 - - [16/Nov/2023:22:19:57 +0900] "GET /usr/article/doDelete?id=4 HTTP/1.1" 200 94
+0:0:0:0:0:0:0:1 - - [16/Nov/2023:22:19:58 +0900] "GET /usr/article/list HTTP/1.1" 200 1644
+0:0:0:0:0:0:0:1 - - [16/Nov/2023:22:20:06 +0900] "GET /usr/article/detail?id=4 HTTP/1.1" 200 90
