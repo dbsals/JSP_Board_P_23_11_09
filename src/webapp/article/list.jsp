@@ -31,7 +31,7 @@
 </style>
 
 <section class="section">
-  <div class="con">
+  <div class="con"">
     <h1>게시물 리스트</h1>
 
     <table border="1" style="border-collapse: collapse; text-align:center;">
@@ -50,8 +50,7 @@
       </tr>
       </thead>
       <tbody>
-      <% for(Map<String, Object> articleRow : articleListMap) {
-      %>
+      <% for(Map<String, Object> articleRow : articleListMap) { %>
       <tr>
         <td><%= articleRow.get("id") %></td>
         <td><%= articleRow.get("regDate") %></td>
