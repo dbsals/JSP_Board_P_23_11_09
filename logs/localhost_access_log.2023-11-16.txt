@@ -68,3 +68,10 @@
 0:0:0:0:0:0:0:1 - - [16/Nov/2023:23:01:12 +0900] "GET /usr/article/doWrite?title=%EC%A0%9C%EB%AA%A94&content=%EB%82%B4%EC%9A%A94 HTTP/1.1" 200 107
 0:0:0:0:0:0:0:1 - - [16/Nov/2023:23:01:14 +0900] "GET /usr/article/detail?id=5 HTTP/1.1" 200 1406
 0:0:0:0:0:0:0:1 - - [16/Nov/2023:23:01:19 +0900] "GET /usr/article/list HTTP/1.1" 200 1847
+0:0:0:0:0:0:0:1 - - [16/Nov/2023:23:22:04 +0900] "GET /usr/article/list HTTP/1.1" 200 1932
+0:0:0:0:0:0:0:1 - - [16/Nov/2023:23:22:09 +0900] "GET /usr/article/wite HTTP/1.1" 404 832
+0:0:0:0:0:0:0:1 - - [16/Nov/2023:23:26:36 +0900] "GET /usr/article/list HTTP/1.1" 200 1932
+0:0:0:0:0:0:0:1 - - [16/Nov/2023:23:28:02 +0900] "GET /usr/article/write HTTP/1.1" 200 963
+0:0:0:0:0:0:0:1 - - [16/Nov/2023:23:28:14 +0900] "POST /usr/article/doWrite HTTP/1.1" 200 107
+0:0:0:0:0:0:0:1 - - [16/Nov/2023:23:28:16 +0900] "GET /usr/article/detail?id=6 HTTP/1.1" 200 1400
+0:0:0:0:0:0:0:1 - - [16/Nov/2023:23:28:17 +0900] "GET /usr/article/list HTTP/1.1" 200 2132
