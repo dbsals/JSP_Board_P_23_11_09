@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import ym.jsp.board.Rq;
 
 import java.io.IOException;
 
@@ -13,8 +14,8 @@ import java.io.IOException;
 public class UsrArticleWriteServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/article/write.jsp");
-    requestDispatcher.forward(req, resp);
+    Rq rq = new Rq(req, resp);
+    rq.jsp("article/write");
   }
 
   @Override

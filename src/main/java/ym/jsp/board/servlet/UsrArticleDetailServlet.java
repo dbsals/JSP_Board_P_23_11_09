@@ -52,8 +52,8 @@ public class UsrArticleDetailServlet extends HttpServlet {
 
     rq.setAttr("articleRow", articleRow);
 
-    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/article/detail.jsp");
-    requestDispatcher.forward(req, resp);
+    rq.jsp("article/detail");
+
     MysqlUtil.closeConnection();
   }
 
