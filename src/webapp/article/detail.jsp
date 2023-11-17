@@ -60,9 +60,11 @@ Map<String, Object> articleRow = (Map<String, Object>) rq.getAttr("articleRow");
       </tbody>
     </table>
     <div class="btn-group">
-      <a href="list">리스트로 이동</a>
+      <a href="list">리스트</a>
       &nbsp;
-      <a href="doDelete?id=<%= articleRow.get("id") %>">게시물 삭제</a>
+      <a href="doDelete?id=${param.id}">삭제</a>
+      &nbsp;
+      <a href="modify?id=${param.id}">수정</a>
     </div>
   </div>
 </section>
