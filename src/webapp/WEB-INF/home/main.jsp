@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ page import="ym.jsp.board.Rq" %>
+<%@ page import="java.util.Map" %>
 
 <%
   Rq rq = new Rq(request, response);
   boolean isLogined = (boolean) rq.getAttr("isLogined");
   int loginedMemberId = (int) rq.getAttr("loginedMemberId");
+  Map<String, Object> loginedMemberRow = (Map<String, Object>) rq.getAttr("loginedMemberRow");
 %>
 
 <!doctype html>
@@ -28,7 +30,7 @@
 
   <% if(isLogined) { %>
   <div>
-    <%=loginedMemberId%> 번 회원님 환영합니다.
+    "<%=loginedMemberRow.get("name")%>" 님 환영합니다.
   </div>
   <% } %>
 
