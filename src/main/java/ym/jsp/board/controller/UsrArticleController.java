@@ -10,16 +10,28 @@ import ym.jsp.board.util.SecSql;
 import java.util.List;
 import java.util.Map;
 
-public class UsrArticleController {
-  private Rq rq;
+public class UsrArticleController extends Controller {
   private ArticleService articleService;
 
-  public UsrArticleController(Rq rq) {
-    this.rq = rq;
+  public UsrArticleController() {
     articleService = new ArticleService();
   }
 
-  public void showList() {
+  @Override
+  public void performAction(Rq rq) {
+    switch (rq.getActionMethodName()) {
+      case "list" -> showList(rq);
+      case "detail" -> showDetail(rq);
+      case "write" -> showWrite(rq);
+      case "doWrite" -> actionWrite(rq);
+      case "modify" -> showModify(rq);
+      case "doModify" -> actionModify(rq);
+      case "doDelete" -> actionDelete(rq);
+      default -> rq.println("존재하지 않는 페이지 입니다.");
+    }
+  }
+
+  public void showList(Rq rq) {
     int page = rq.getIntParam("page", 1);
 
     int totalPage = articleService.getForPrintListTotalPage();
@@ -33,7 +45,7 @@ public class UsrArticleController {
     rq.jsp("article/list");
   }
 
-  public void showDetail() {
+  public void showDetail(Rq rq) {
     HttpSession session = rq.getSession();
 
     boolean isLogined = false;
@@ -88,11 +100,11 @@ public class UsrArticleController {
     rq.jsp("article/detail");
   }
 
-  public void showWrite() {
+  public void showWrite(Rq rq) {
     rq.jsp("article/write");
   }
 
-  public void actionWrite() {
+  public void actionWrite(Rq rq) {
     String title = rq.getParam("title", "");
     String content = rq.getParam("content", "");
     String redirectUri = rq.getParam("redirectUri", "../article/list");
@@ -124,7 +136,7 @@ public class UsrArticleController {
     rq.replace(writeRd.getMsg(), redirectUri);
   }
 
-  public void showModify() {
+  public void showModify(Rq rq) {
     int id = rq.getIntParam("id", 0);
 
     if(id == 0) {
@@ -149,7 +161,7 @@ public class UsrArticleController {
     rq.jsp("article/modify");
   }
 
-  public void actionModify() {
+  public void actionModify(Rq rq) {
     int id = rq.getIntParam("id", 0);
     String title = rq.getParam("title", "");
     String content = rq.getParam("content", "");
@@ -189,7 +201,7 @@ public class UsrArticleController {
           """.formatted(id, id));
   }
 
-  public void actionDelete() {
+  public void actionDelete(Rq rq) {
     int id = rq.getIntParam("id", 0);
 
     if(id == 0) {
