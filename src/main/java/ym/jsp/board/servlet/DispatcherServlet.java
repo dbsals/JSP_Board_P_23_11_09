@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import ym.jsp.board.Rq;
 import ym.jsp.board.controller.UsrArticleController;
+import ym.jsp.board.controller.UsrHomeController;
 import ym.jsp.board.util.MysqlUtil;
 import ym.jsp.board.util.SecSql;
 
@@ -71,12 +72,25 @@ public class DispatcherServlet extends HttpServlet {
     rq.setAttr("loginedMemberRow", loginedMemberRow);
     // 모든 요청을 들어가기 전에 무조건 해야 하는 일 끝
 
+    if(controllerName.equals("home")) {
+      UsrHomeController usrHomeController = new UsrHomeController(rq);
+
+      switch (actionMethodName) {
+        case "main" -> usrHomeController.showMain();
+      }
+    }
+
     if(controllerName.equals("article")) {
       UsrArticleController usrArticleController = new UsrArticleController(rq);
 
       switch (actionMethodName) {
-        case "list":
-          usrArticleController.actionList();
+        case "list" -> usrArticleController.showList();
+        case "detail" -> usrArticleController.showDetail();
+        case "write" -> usrArticleController.showWrite();
+        case "doWrite" -> usrArticleController.actionWrite();
+        case "modify" -> usrArticleController.showModify();
+        case "doModify" -> usrArticleController.actionModify();
+        case "doDelete" -> usrArticleController.actionDelete();
       }
     }
 
