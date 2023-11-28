@@ -1,17 +1,16 @@
 package ym.jsp.board.servlet;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import ym.jsp.board.Rq;
 import ym.jsp.board.util.MysqlUtil;
 import ym.jsp.board.util.SecSql;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 @WebServlet("/usr/article/detail")
@@ -23,6 +22,26 @@ public class UsrArticleDetailServlet extends HttpServlet {
 
     Rq rq = new Rq(req, resp);
 
+    HttpSession session = req.getSession();
+
+    boolean isLogined = false;
+    int loginedMemberId = -1;
+    Map<String, Object> loginedMemberRow = null;
+
+    if(session.getAttribute("loginedMemberId") != null) {
+      loginedMemberId = (int) session.getAttribute("loginedMemberId");
+      isLogined = true;
+
+      SecSql sql = new SecSql();
+      sql.append("SELECT * FROM `member`");
+      sql.append("WHERE id = ?", loginedMemberId);
+      loginedMemberRow = MysqlUtil.selectRow(sql);
+    }
+
+    rq.setAttr("isLogined", isLogined); // 로그인 여부
+    rq.setAttr("loginedMemberId", loginedMemberId);
+    rq.setAttr("loginedMemberRow", loginedMemberRow);
+
     int id = rq.getIntParam("id", 0);
 
     if(id == 0) {
@@ -31,7 +50,6 @@ public class UsrArticleDetailServlet extends HttpServlet {
     }
 
     SecSql sql = new SecSql();
-
     sql.append("SELECT COUNT(*)");
     sql.append("FROM article AS A");
     sql.append("WHERE A.id = ?", id);

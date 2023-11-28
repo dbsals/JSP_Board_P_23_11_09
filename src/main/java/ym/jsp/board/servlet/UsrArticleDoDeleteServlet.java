@@ -1,6 +1,5 @@
 package ym.jsp.board.servlet;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,7 +10,6 @@ import ym.jsp.board.util.MysqlUtil;
 import ym.jsp.board.util.SecSql;
 
 import java.io.IOException;
-import java.util.Map;
 
 @WebServlet("/usr/article/doDelete")
 public class UsrArticleDoDeleteServlet extends HttpServlet {
@@ -30,7 +28,6 @@ public class UsrArticleDoDeleteServlet extends HttpServlet {
     }
 
     SecSql sql = new SecSql();
-
     sql.append("SELECT COUNT(*)");
     sql.append("FROM article AS A");
     sql.append("WHERE A.id = ?", id);

@@ -2,29 +2,15 @@
 
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="ym.jsp.board.Rq" %>
 
 <%
-  List<Map<String, Object>> articleListMap = (List<Map<String, Object>>) request.getAttribute("articleListMap");
-  int cPage = (int) request.getAttribute("page");
-  int totalPage = (int) request.getAttribute("totalPage");
+List<Map<String, Object>> articleListMap = (List<Map<String, Object>>) request.getAttribute("articleListMap");
+int cPage = (int) request.getAttribute("page");
+int totalPage = (int) request.getAttribute("totalPage");
 %>
 
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>게시물 리스트</title>
-</head>
-<body>
-<style type="text/css">
-  body, ul, li {
-    margin: 0;
-  }
-
+<%@ include file="../part/head.jspf"%>
+<style>
   .section {
     display: flex;
     justify-content: center;
@@ -36,7 +22,7 @@
 </style>
 
 <section class="section">
-  <div class="con"">
+  <div class="con">
     <h1>게시물 리스트</h1>
 
     <table border="1" style="border-collapse: collapse; text-align:center;">
@@ -57,7 +43,8 @@
       </tr>
       </thead>
       <tbody>
-      <% for(Map<String, Object> articleRow : articleListMap) { %>
+      <% for(Map<String, Object> articleRow : articleListMap) {
+      %>
       <tr>
         <td><%= articleRow.get("id") %></td>
         <td><%= articleRow.get("regDate") %></td>
@@ -83,24 +70,22 @@
       int from = cPage - pageMenuSize;
 
       if(from < 1) {
-        from = 1;
+      from = 1;
       }
 
       int end = cPage + 10;
-
       if(end > totalPage) {
-        end = totalPage;
+      end = totalPage;
       }
 
       for(int i = from; i <= end; i++) {%>
-        <a class="<%= cPage == i ? "red" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+      <a class="<%= cPage == i ? "red" : "" %>" href="list?page=<%=i%>"><%=i%></a>
       <% } %>
       <% if(cPage < totalPage) { %>
-        <a href="list?page=<%=totalPage%>">▶</a>
+      <a href="list?page=<%=totalPage%>">▶</a>
       <% } %>
     </div>
   </div>
 </section>
 
-</body>
-</html>
+<%@ include file="../part/foot.jspf"%>

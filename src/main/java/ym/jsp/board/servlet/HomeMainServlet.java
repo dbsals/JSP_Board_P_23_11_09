@@ -35,10 +35,9 @@ public class HomeMainServlet extends HttpServlet {
       loginedMemberRow = MysqlUtil.selectRow(sql);
     }
 
-    rq.setAttr("isLogined", isLogined);
+    rq.setAttr("isLogined", isLogined); // 로그인 여부
     rq.setAttr("loginedMemberId", loginedMemberId);
     rq.setAttr("loginedMemberRow", loginedMemberRow);
-
 
     rq.jsp("home/main");
   }

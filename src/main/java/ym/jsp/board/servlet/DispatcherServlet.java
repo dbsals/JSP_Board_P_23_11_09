@@ -25,6 +25,8 @@ public class DispatcherServlet extends HttpServlet {
 
     String requestUri = req.getRequestURI();
     String[] requestUriBits = requestUri.split("/");
+    // /usr/article/list
+    // [0]/[1]/[2]/[3]
 
     int minBitsCount = 4;
 
@@ -47,6 +49,7 @@ public class DispatcherServlet extends HttpServlet {
 
     System.out.printf("%s/%s/%s\n", controllerTypeName, controllerName, actionMethodName);
 
+    // 모든 요청을 들어가기 전에 무조건 해야 하는 일 시작
     HttpSession session = req.getSession();
 
     boolean isLogined = false;
@@ -63,9 +66,10 @@ public class DispatcherServlet extends HttpServlet {
       loginedMemberRow = MysqlUtil.selectRow(sql);
     }
 
-    rq.setAttr("isLogined", isLogined);
+    rq.setAttr("isLogined", isLogined); // 로그인 여부
     rq.setAttr("loginedMemberId", loginedMemberId);
     rq.setAttr("loginedMemberRow", loginedMemberRow);
+    // 모든 요청을 들어가기 전에 무조건 해야 하는 일 끝
 
     if(controllerName.equals("article")) {
       UsrArticleController usrArticleController = new UsrArticleController(rq);
