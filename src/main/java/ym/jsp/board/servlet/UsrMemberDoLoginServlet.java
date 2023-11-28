@@ -50,7 +50,6 @@ public class UsrMemberDoLoginServlet extends HttpServlet {
           """);
     }
 
-    // 세션에다 현재 로그인한 정보를 담기 위해서
     HttpSession session = req.getSession();
     session.setAttribute("loginedMemberId", memberRow.get("id"));
 

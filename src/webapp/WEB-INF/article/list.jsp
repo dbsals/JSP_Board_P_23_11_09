@@ -5,10 +5,9 @@
 <%@ page import="ym.jsp.board.Rq" %>
 
 <%
-  Rq rq = new Rq(request, response);
-  List<Map<String, Object>> articleListMap = (List<Map<String, Object>>) rq.getAttr("articleListMap");
-  int cPage = (int)rq.getAttr("page");
-  int totalPage = (int)rq.getAttr("totalPage");
+  List<Map<String, Object>> articleListMap = (List<Map<String, Object>>) request.getAttribute("articleListMap");
+  int cPage = (int) request.getAttribute("page");
+  int totalPage = (int) request.getAttribute("totalPage");
 %>
 
 <!doctype html>
