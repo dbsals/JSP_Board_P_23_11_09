@@ -60,4 +60,19 @@ public class ArticleService {
 
     return ResultData.from("S-1", "수정이 가능합니다.");
   }
+
+  public ResultData delete(int id) {
+    articleRepository.delete(id);
+
+    return ResultData.from("S-1", Ut.f("%d번 게시물이 삭제되었습니다.", id), "id", id);
+  }
+
+  public ResultData actorCanDelete(int loginedMemberId, Article article) {
+
+    if(loginedMemberId != article.getMemberId()) {
+      return ResultData.from("F-1", "권한이 없습니다.");
+    }
+
+    return ResultData.from("S-1", "삭제가 가능합니다.");
+  }
 }
