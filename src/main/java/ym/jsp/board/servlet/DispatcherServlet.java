@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import ym.jsp.board.Rq;
 import ym.jsp.board.controller.UsrArticleController;
 import ym.jsp.board.controller.UsrHomeController;
+import ym.jsp.board.controller.UsrMemberController;
 import ym.jsp.board.util.MysqlUtil;
 import ym.jsp.board.util.SecSql;
 
@@ -49,10 +50,12 @@ public class DispatcherServlet extends HttpServlet {
           -> {
         UsrHomeController usrHomeController = new UsrHomeController();
         UsrArticleController usrArticleController = new UsrArticleController();
+        UsrMemberController usrMemberController = new UsrMemberController();
 
         switch (rq.getControllerName()) {
           case "home" -> usrHomeController.performAction(rq);
           case "article" -> usrArticleController.performAction(rq);
+          case "member" -> usrMemberController.performAction(rq);
         }
       }
     }

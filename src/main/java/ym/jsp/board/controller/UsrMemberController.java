@@ -1,6 +1,7 @@
 package ym.jsp.board.controller;
 
 import ym.jsp.board.Rq;
+import ym.jsp.board.dto.Member;
 import ym.jsp.board.dto.ResultData;
 import ym.jsp.board.service.MemberService;
 
@@ -16,16 +17,48 @@ public class UsrMemberController extends Controller {
       case "join" -> showJoin(rq);
       case "doJoin" -> actionJoin(rq);
       case "login" -> showLogin(rq);
-      case "doLogin" -> actionDoLoin(rq);
+      case "doLogin" -> actionDoLogin(rq);
+      case "logout" -> actionDoLogout(rq);
       default -> rq.println("존재하지 않는 페이지 입니다.");
     }
   }
 
-  private void actionDoLoin(Rq rq) {
+  private void actionDoLogout(Rq rq) {
+    rq.removeSessionAttr("loginedMemberId");
+    rq.replace("로그아웃 되었습니다.", "../article/list");
+  }
+
+  private void actionDoLogin(Rq rq) {
+    String loginId = rq.getParam("loginId", "");
+    String loginPw = rq.getParam("loginPw", "");
+    String redirectUri = rq.getParam("redirectUri", "../article/list");
+
+    if(loginId.length() == 0) {
+      rq.historyBack("loginId(을)를 입력해주세요.");
+      return;
+    }
+
+    if(loginPw.length() == 0) {
+      rq.historyBack("loginPw(을)를 입력해주세요.");
+      return;
+    }
+
+    ResultData loginRd = memberService.login(loginId, loginPw);
+
+    if(loginRd.isFail()) {
+      rq.historyBack(loginRd.getMsg());
+      return;
+    }
+
+    Member member = (Member) loginRd.getBody().get("member");
+
+    rq.setSessionAttr("loginedMemberId", member);
+
+    rq.replace(loginRd.getMsg(), redirectUri);
   }
 
   private void showLogin(Rq rq) {
-
+    rq.jsp("member/login");
   }
 
   private void actionJoin(Rq rq) {
