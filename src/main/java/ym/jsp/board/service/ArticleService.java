@@ -1,5 +1,6 @@
 package ym.jsp.board.service;
 
+import ym.jsp.board.dto.Article;
 import ym.jsp.board.dto.ResultData;
 import ym.jsp.board.repository.ArticleRepository;
 import ym.jsp.board.util.MysqlUtil;
@@ -40,5 +41,9 @@ public class ArticleService {
   public ResultData write(int loginedMemberId, String title, String content) {
     int id = articleRepository.write(loginedMemberId, title, content);
     return ResultData.from("S-1", Ut.f("%d번 게시물이 생성되었습니다.", id), "id", id);
+  }
+
+  public Article getForPrintArticleById(int id) {
+    return articleRepository.getForPrintArticleById(id);
   }
 }

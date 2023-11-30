@@ -2,6 +2,7 @@ package ym.jsp.board.controller;
 
 import jakarta.servlet.http.HttpSession;
 import ym.jsp.board.Rq;
+import ym.jsp.board.dto.Article;
 import ym.jsp.board.dto.ResultData;
 import ym.jsp.board.service.ArticleService;
 import ym.jsp.board.util.MysqlUtil;
@@ -69,33 +70,18 @@ public class UsrArticleController extends Controller {
     int id = rq.getIntParam("id", 0);
 
     if(id == 0) {
-      rq.print("<script>alert('잘못 된 요청입니다.'); history.back(); </script>");
+      rq.historyBack("잘못 된 요청입니다.");
       return;
     }
 
-    SecSql sql = new SecSql();
-    sql.append("SELECT COUNT(*)");
-    sql.append("FROM article AS A");
-    sql.append("WHERE A.id = ?", id);
+    Article article = articleService.getForPrintArticleById(id);
 
-    boolean articleIsExists = MysqlUtil.selectRowBooleanValue(sql);
-
-    if(articleIsExists == false) {
-      rq.print("<script>alert('해당 게시물은 없는 게시물입니다.'); history.back(); </script>");
+    if(article == null) {
+      rq.historyBack("해당 게시물은 없는 게시물입니다.");
       return;
     }
 
-    sql = new SecSql();
-    sql.append("SELECT A.*, M.name AS writerName");
-    sql.append("FROM article AS A");
-    sql.append("INNER JOIN `member` AS M");
-    sql.append("ON A.memberId = M.id");
-    sql.append("WHERE A.id = ?", id);
-    sql.append("ORDER BY A.id DESC");
-
-    Map<String, Object> articleRow = MysqlUtil.selectRow(sql);
-
-    rq.setAttr("articleRow", articleRow);
+    rq.setAttr("article", article);
 
     rq.jsp("article/detail");
   }
