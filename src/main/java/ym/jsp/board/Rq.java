@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
+import lombok.Setter;
 import ym.jsp.board.dto.Member;
 import ym.jsp.board.util.Ut;
 
@@ -19,14 +20,19 @@ public class Rq {
   private final HttpServletResponse resp;
   @Getter
   private boolean isInvalid = false;
+
   @Getter
+  @Setter
   private boolean isLogined = false;
 
   @Getter
+  @Setter
   private int loginedMemberId = 0;
 
   @Getter
-  private Member logineMember = null;
+  @Setter
+  private Member loginedMember = null;
+
   @Getter
   private String controllerTypeName;
   @Getter
@@ -34,20 +40,27 @@ public class Rq {
   @Getter
   private String actionMethodName;
 
+  public boolean isNotLogined() {
+    return isLogined == false;
+  }
+
   public Rq(HttpServletRequest req, HttpServletResponse resp) {
     this.req = req;
     this.resp = resp;
 
     try {
-      req.setCharacterEncoding("UTF-8");
+      req.setCharacterEncoding("UTF-8"); // 들어오는 데이터를 UTF-8로 해석하겠다.
     } catch (UnsupportedEncodingException e) {
       throw new RuntimeException(e);
     }
-    resp.setCharacterEncoding("UTF-8");
-    resp.setContentType("text/html; charset-ut-8");
+    resp.setCharacterEncoding("UTF-8"); // 완성되는 HTML 인코딩을 UTF-8로 하겠다.
+    resp.setContentType("text/html; charset-ut-8"); // 브라우저에게 우리가 만든 결과물이 UTF-8이다 라고 알리는 의미
+
 
     String requestUri = req.getRequestURI();
     String[] requestUriBits = requestUri.split("/");
+    // /usr/article/list
+    // [0]/[1]/[2]/[3]
 
     int minBitsCount = 4;
 
@@ -137,6 +150,10 @@ public class Rq {
     }
   }
 
+  public String getActionPath() {
+    return "/" + controllerTypeName + "/" + controllerName + "/" + actionMethodName;
+  }
+
   public <T> T getSessionAttr(String attrName) {
 //    if(req.getSession().getAttribute(attrName) == null ) {
 //      return defaultValue;
@@ -152,4 +169,5 @@ public class Rq {
   public void removeSessionAttr(String attrName) {
     req.getSession().removeAttribute(attrName);
   }
+
 }

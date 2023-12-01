@@ -29,11 +29,11 @@ public class DispatcherServlet extends HttpServlet {
       return;
     }
 
-    Controller controller = null;
-
     if(runInterceptor(rq) == false) {
       return;
     }
+
+    Controller controller = null;
 
     switch (rq.getControllerTypeName()) {
       case "usr"
@@ -53,15 +53,15 @@ public class DispatcherServlet extends HttpServlet {
   }
 
   private boolean runInterceptor(Rq rq) {
-    if(Container.beforeActionInterceptor.runBeforeAction(rq)) {
+    if(Container.beforeActionInterceptor.runBeforeAction(rq) == false) {
       return false;
     }
 
-    if(Container.needLoginInterceptor.runBeforeAction(rq)) {
+    if(Container.needLoginInterceptor.runBeforeAction(rq) == false) {
       return false;
     }
 
-    if(Container.needLogoutInterceptor.runBeforeAction(rq)) {
+    if(Container.needLogoutInterceptor.runBeforeAction(rq) == false) {
       return false;
     }
 
