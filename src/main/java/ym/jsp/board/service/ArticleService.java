@@ -1,5 +1,6 @@
 package ym.jsp.board.service;
 
+import ym.jsp.board.container.Container;
 import ym.jsp.board.dto.Article;
 import ym.jsp.board.dto.ResultData;
 import ym.jsp.board.repository.ArticleRepository;
@@ -14,7 +15,7 @@ public class ArticleService {
   private ArticleRepository articleRepository;
 
   public ArticleService() {
-    articleRepository = new ArticleRepository();
+    articleRepository = Container.articleRepository;
   }
 
   public int getItemInAPage() {

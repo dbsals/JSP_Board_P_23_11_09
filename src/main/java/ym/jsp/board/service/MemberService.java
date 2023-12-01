@@ -1,5 +1,6 @@
 package ym.jsp.board.service;
 
+import ym.jsp.board.container.Container;
 import ym.jsp.board.dto.Member;
 import ym.jsp.board.dto.ResultData;
 import ym.jsp.board.repository.MemberRepository;
@@ -9,7 +10,7 @@ public class MemberService {
   private MemberRepository memberRepository;
 
   public MemberService() {
-    memberRepository = new MemberRepository();
+    memberRepository = Container.memberRepository;
   }
 
   public ResultData join(String loginId, String loginPw, String name, String email) {

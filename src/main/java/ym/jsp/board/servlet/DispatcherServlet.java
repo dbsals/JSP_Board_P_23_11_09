@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import ym.jsp.board.Rq;
+import ym.jsp.board.container.Container;
+import ym.jsp.board.controller.Controller;
 import ym.jsp.board.controller.UsrArticleController;
 import ym.jsp.board.controller.UsrHomeController;
 import ym.jsp.board.controller.UsrMemberController;
@@ -20,9 +22,6 @@ import java.util.Map;
 public class DispatcherServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    MysqlUtil.setDBInfo("localhost", "ym", "aa48aa76", "jspboard");
-    MysqlUtil.setDevMode(true);
-
     Rq rq = new Rq(req, resp);
 
     HttpSession session = req.getSession();
@@ -45,22 +44,23 @@ public class DispatcherServlet extends HttpServlet {
     rq.setAttr("loginedMemberId", loginedMemberId);
     rq.setAttr("loginedMemberRow", loginedMemberRow);
 
+    Controller controller = null;
+
     switch (rq.getControllerTypeName()) {
       case "usr"
           -> {
-        UsrHomeController usrHomeController = new UsrHomeController();
-        UsrArticleController usrArticleController = new UsrArticleController();
-        UsrMemberController usrMemberController = new UsrMemberController();
-
         switch (rq.getControllerName()) {
-          case "home" -> usrHomeController.performAction(rq);
-          case "article" -> usrArticleController.performAction(rq);
-          case "member" -> usrMemberController.performAction(rq);
+          case "home" -> controller = Container.usrHomeController;
+          case "article" -> controller = Container.usrArticleController;
+          case "member" -> controller = Container.usrMemberController;
         }
       }
     }
 
-    MysqlUtil.closeConnection();
+    if(controller != null) {
+      controller.performAction(rq);
+      MysqlUtil.closeConnection();
+    }
   }
 
   @Override

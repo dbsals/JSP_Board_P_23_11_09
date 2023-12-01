@@ -2,6 +2,7 @@ package ym.jsp.board.controller;
 
 import jakarta.servlet.http.HttpSession;
 import ym.jsp.board.Rq;
+import ym.jsp.board.container.Container;
 import ym.jsp.board.dto.Article;
 import ym.jsp.board.dto.ResultData;
 import ym.jsp.board.service.ArticleService;
@@ -16,7 +17,7 @@ public class UsrArticleController extends Controller {
   private ArticleService articleService;
 
   public UsrArticleController() {
-    articleService = new ArticleService();
+    articleService = Container.articleService;
   }
 
   @Override

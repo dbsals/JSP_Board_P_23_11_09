@@ -1,6 +1,7 @@
 package ym.jsp.board.controller;
 
 import ym.jsp.board.Rq;
+import ym.jsp.board.container.Container;
 import ym.jsp.board.dto.Member;
 import ym.jsp.board.dto.ResultData;
 import ym.jsp.board.service.MemberService;
@@ -8,7 +9,7 @@ import ym.jsp.board.service.MemberService;
 public class UsrMemberController extends Controller {
   private MemberService memberService;
   public UsrMemberController() {
-    memberService = new MemberService();
+    memberService = Container.memberService;
   }
 
   @Override
