@@ -19,7 +19,7 @@ public class UsrMemberController extends Controller {
       case "doJoin" -> actionJoin(rq);
       case "login" -> showLogin(rq);
       case "doLogin" -> actionDoLogin(rq);
-      case "logout" -> actionDoLogout(rq);
+      case "dologout" -> actionDoLogout(rq);
       default -> rq.println("존재하지 않는 페이지 입니다.");
     }
   }
